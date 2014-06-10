@@ -1,0 +1,4 @@
+ex6
+
+This error tells you that you tried to use the variable 'shoes' in your code
+but 'shoes' hasn't been defined yet.

@@ -1,0 +1,4 @@
+ex4
+
+It will not print anything to the screen because there is a return 
+statement in the method before the puts statement.

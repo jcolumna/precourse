@@ -1,0 +1,4 @@
+ex6
+
+The error message tells you that the method was expecting two 
+arguments to be passed but you only gave it one.
