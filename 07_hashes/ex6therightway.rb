@@ -21,4 +21,6 @@ words.each do |word|
   end
 end
 
+p final
+
 final.each { |k, v| p v }

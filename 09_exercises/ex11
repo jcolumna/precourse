@@ -1,0 +1,4 @@
+ex11
+
+After digging around a bit and looking at a few API's I can conclude that the original 
+ruby-doc.org website seems to be the most complete. Other sites also include weird looking methods (hash.to_yaml => What's a YAML? ) that aren't found on the ruby-doc website. I know I can trust all the methods on ruby-doc.

@@ -1,0 +1,7 @@
+ex3
+
+Q: What is exception handling and what problem does it solve?
+
+A: Exception handling is the practice of predicting possible errors that could be thrown 
+   by a block of code, and writing in ways to handle them so that your code doesn't choke 
+   and die every time you ask a user for a number and they input a string instead.

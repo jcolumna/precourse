@@ -1,0 +1,13 @@
+ex5
+
+Why's this throw an error?
+
+def execute(block)
+  block.call
+end
+
+execute { puts "Hello from inside the execute method!" }
+
+Because you forgot to let the compiler know that the execute method 
+takes a block as input. You're missing the ampersand before the 
+word block in parenthesis.
