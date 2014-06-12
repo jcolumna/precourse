@@ -1,3 +1,0 @@
-ex7
-
-The major difference between an array and a hash is hashes are pairs of things. Keys that relate to values, as opposed to an array which is just a list of things. Also, even though hashes maintain order in the new Ruby, arrays are still preferred when one needs to keep an ordered list.
