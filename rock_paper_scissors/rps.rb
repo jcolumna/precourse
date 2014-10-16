@@ -59,16 +59,6 @@ def winning_phrase(c_array)
   else phrase = "Rock crushes Scissors!"
   end
 end
-      
-#Decided I wanted to pass around the expanded versions of the answers.      
-def expand_choice (choice)
-  if choice == 'r'
-    choice = 'Rock'
-  elsif choice == 'p'
-    choice = 'Paper'
-  else choice = 'Scissors'
-  end
-end
 
 #Prompt for another game
 def play_again
@@ -88,11 +78,11 @@ begin
     player_choice = gets.chomp.downcase
   end until CHOICES.keys.include?(player_choice)
 
-  player_choice = expand_choice(player_choice)
+  #Decided that it would be easier to pass around the values.
+  player_choice = CHOICES[player_choice]
   
   # computer makes a pick
-  computer_choice = CHOICES.keys.sample
-  computer_choice = expand_choice(computer_choice)
+  computer_choice = CHOICES.values.sample
   choice_arr = [player_choice, computer_choice]
 
   game_over = win_test(choice_arr)
