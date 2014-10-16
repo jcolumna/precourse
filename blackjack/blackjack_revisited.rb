@@ -36,3 +36,4 @@ puts "What would you like to do? 1) hit 2) stay"
 hit_or_stay = gets.chomp
 
 # Starting out... the dealer's first card is face up and the dealer's second card is face down.
+
