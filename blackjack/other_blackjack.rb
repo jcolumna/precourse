@@ -1,6 +1,9 @@
-#blackjack_revisited.rb
+#other_blackjack.rb
+#This is the same as other_blackjack.rb only it has the hand draw function...
+#Joshua Columna
+#10/21/14
 
-require 'pry'
+#require 'pry'
 
 #Allow the player to place a bet on a the next hand before any cards are dealt.
 #Deal two cards to player and dealer, leaving dealer's second card face down.
@@ -67,7 +70,8 @@ def draw_hand(hand, who = 'Dealer', display_last = false)
     hand.push(["?","X"])
   end
   hand.each {c +=1}
-  spaces = c*11/2-6 #crappy formatting method attempts to center align the text
+  spaces = c * 11 / 2 - 6 
+  #crappy formatting method attempts to center align the text
   spaces.times do 
     print " "
   end
@@ -101,12 +105,12 @@ def draw_hand(hand, who = 'Dealer', display_last = false)
     print "Total Shown: #{calculate_total(hand)}"
   end
   if last != []
-    hand.push( last )
+    hand.push(last)
   end
   puts ""  
 end
 
-def draw_board(mycards, dealercards, prompt, msg )
+def draw_board(mycards, dealercards, prompt, msg)
   system 'cls' or system 'clear'
   puts "#{prompt}"
   puts ""
@@ -118,7 +122,7 @@ def draw_board(mycards, dealercards, prompt, msg )
   input = gets.chomp
 end
 
-values = [ '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A' ]
+values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 suits = ["\u2665", "\u2666", "\u2663", "\u2660"] #Hearts, Diamonds, Clubs, Spades
 
 
@@ -149,13 +153,14 @@ end
 if calculate_total(mycards) == 21
   draw_board(mycards, dealercards, "Player has Blackjack!", "Congratulations! You win!") 
 end
-input = draw_board(mycards, dealercards, "What would you like to do?", "(H to hit, S to stay.)")
-begin
-  if calculate_total(mycards) < 21
-    mycards << deck.pop
+if calculate_total(mycards) < 21
+  begin
     input = draw_board(mycards, dealercards, "What would you like to do?", "(H to hit, S to stay.)")
-  end
-end while input.casecmp('h') == 0 or calculate_total(mycards) >= 21
+    if input.casecmp('h') == 0 && calculate_total(mycards) < 21
+      mycards << deck.pop
+    end   
+  end until input.casecmp('h') != 0 || calculate_total(mycards) >= 21
+end
 if calculate_total(mycards) == 21
   draw_board(mycards, dealercards, "Player has 21!!", "Congrats! You win!")
 elsif calculate_total(mycards) > 21
