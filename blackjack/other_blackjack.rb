@@ -54,8 +54,8 @@ def calculate_total(hand) #[['2', 's'], ['a', 'd'], ... etc.]
 end
 
 
-def draw_board(pcards, dcards)
-end
+# def draw_board(pcards, dcards)
+# end
 
 def draw_hand(hand, who = 'Dealer', display_last = false)
   #Count the number of cards in a hand and display each part that many times on one line.
@@ -110,16 +110,19 @@ def draw_hand(hand, who = 'Dealer', display_last = false)
   puts ""  
 end
 
-def draw_board(mycards, dealercards, prompt, msg)
+#Possible to include "Play Again?" logic here?
+def draw_board(mycards, dealercards, prompt, msg, dealers_turn = false)
   system 'cls' or system 'clear'
   puts "#{prompt}"
   puts ""
   draw_hand(mycards, 'Player', true)
   puts ""
-  draw_hand(dealercards)
+  draw_hand(dealercards, 'Dealer', dealers_turn)
   puts ""
   puts msg
-  input = gets.chomp
+  if !dealers_turn
+    input = gets.chomp
+  end
 end
 
 values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
@@ -150,10 +153,12 @@ end
 #Following that: If the player has 21, They win!
 #Unfortunately: If the player has more than 21, they lose.
 #Lastly: If the player chose to stay, play passes to dealer.
+game_over = false
 if calculate_total(mycards) == 21
   draw_board(mycards, dealercards, "Player has Blackjack!", "Congratulations! You win!") 
+  game_over = true
 end
-if calculate_total(mycards) < 21
+if calculate_total(mycards) < 21 && !game_over
   begin
     input = draw_board(mycards, dealercards, "What would you like to do?", "(H to hit, S to stay.)")
     if input.casecmp('h') == 0 && calculate_total(mycards) < 21
@@ -161,11 +166,47 @@ if calculate_total(mycards) < 21
     end   
   end until input.casecmp('h') != 0 || calculate_total(mycards) >= 21
 end
-if calculate_total(mycards) == 21
+if calculate_total(mycards) == 21 && !game_over
   draw_board(mycards, dealercards, "Player has 21!!", "Congrats! You win!")
+  game_over = true
 elsif calculate_total(mycards) > 21
   draw_board(mycards, dealercards, "You bust!", "Better luck next time...")
+  game_over = true
 end
+# Next, play passes to dealer...
+if !game_over
+  draw_board(mycards, dealercards, "The dealer reveals their hole card...", "", true)
+  sleep (5)
+  if calculate_total(dealercards) < 17
+    begin 
+      dealercards << deck.pop
+      draw_board(mycards, dealercards, "The dealer draws a card.", "", true)
+      sleep (5)
+    end until calculate_total(dealercards) >= 17
+  end
+end
+# The totals aren't going to change any further so we can just store the values instead
+# of calculating them all the time.
+dealer_total = calculate_total(dealercards)
+player_total = calculate_total(mycards)
+if dealer_total == 21 && !game_over
+  draw_board(mycards, dealercards, "Dealer has Blackjack!", "Oh no!! You lose.. Try again?", true)
+  game_over = true
+elsif dealer_total > 21 && !game_over
+  draw_board(mycards, dealercards, "The house is bust!", "Congratulations, you win!", true)
+  game_over = true
+elsif dealer_total == player_total && !game_over
+  draw_board(mycards, dealercards, "It's a push~", "No winners this time...", true)
+  game_over = true
+elsif dealer_total > player_total && !game_over
+  draw_board(mycards, dealercards, "Dealer wins!", "Better luck next time...", true)
+  game_over = true
+elsif dealer_total < player_total  && !game_over
+  draw_board(mycards, dealercards, "You win, Player!", "Congratulations!!", true)  
+  game_over = true
+end
+
+
 
 
 
