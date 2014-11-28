@@ -1,0 +1,19 @@
+#Allow the player to place a bet on a the next hand before any cards are dealt.
+#Deal two cards to player and dealer, leaving dealer's second card face down.
+#Options: allow player to split if their two cards are of the same value.
+# no doubling down or splitting is allowed on the already split hands.
+#Options: Allow the player to double down, doubling their bet if their total is 10 or 11, 
+# and taking only one more hit afterwards.
+#Options: If the dealer's face card is an ace, allow the player to buy insurance at a rate of half their bet.
+#If the dealer's hole card is a ten when their face card is an ace, house wins unless it was a push.
+# If insurance was bought and house did have blackjack, player keeps their chips. Otherwise, the extra half bet is lost.
+#Either way, game over.
+#Ask the player if he wants to hit until he decides not to.
+#If the player busts, game over.
+#Once the player decides to stay, flip the dealer's hole card. 
+#House has to hit until they have at least 17.
+#If the house busts, game over.
+#Compare the player's score to the house's score. The higher value wins.
+#Game over.
+#If neither is higher, it's a push.
+#Game over.
