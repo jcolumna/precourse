@@ -1,5 +1,5 @@
 #Joshua Columna
-#11/28/14
+#11/29/14
 
 #require 'pry'
 
@@ -45,28 +45,26 @@ def draw_hand(hand, who = 'Dealer', display_last = false)
   #Count the number of cards in a hand and display each part that many times on one line.
   #If !display_last, don't print the last card.
 
-  c = 0
+  card_count = 0
   last = []
   if !display_last
     last = hand.pop
     hand.push(["?","X"])
   end
-  hand.each {c +=1}
-  spaces = c * 11 / 2 - 6 
+  hand.each {card_count +=1}
+
+  spaces = card_count * 11 / 2 - (who.length + 6) / 2 
   #crappy formatting method attempts to center align the hand's header.
-  #Works fine if the name is 6 chars long, ie. 'Player' or 'Dealer'
-  #But starts to get askew the longer the name is.
   spaces.times do 
     print " "
   end
   puts "#{who}'s Hand"
-  c.times { print " +---*---+ " }
+  card_count.times { print " +---*---+ " }
   puts ""
   hand.each { |card| print " | #{card[1]}     | " }
-  #i = 0 
-  #while i < c 
+  
   puts ""
-  c.times { print " |       | " }
+  card_count.times { print " |       | " }
   puts ""
      
   hand.each do |card|
@@ -77,11 +75,11 @@ def draw_hand(hand, who = 'Dealer', display_last = false)
     end
   end
   puts ""  
-  c.times { print " |       | " }
+  card_count.times { print " |       | " }
   puts ""  
   hand.each { |card| print " |     #{card[1]} | " }
   puts ""  
-  c.times { print " +---*---+ " }
+  card_count.times { print " +---*---+ " }
   if display_last
     print "Total: #{calculate_total(hand)}"
   else
@@ -123,6 +121,7 @@ puts "Welcome to Blackjack!"
 puts ""
 puts "May I have your name?"
 NAME = gets.chomp
+puts ""
 puts "Thanks for joining us, #{NAME}!"
 sleep (2)
 puts "Let's begin, shall we?"
