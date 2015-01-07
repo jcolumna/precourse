@@ -16,7 +16,11 @@ class Player
     @choice = choice
   end
   
-  def self.get_player_choice
+  # I implemented the following, and its sister method Computer.choose
+  # in order to keep the respective classes' initialize methods simple.
+  # because these methods are designed to be called before any instances
+  # of their classes are created, they had to be class methods.
+  def self.get_player_choice 
     puts "Choose one: Rock, Paper, or Scissors!"
     sleep (0.5)
     puts "(Type r, p, or s to make your choice.)"
@@ -33,7 +37,7 @@ class Player
     end    
   end
 
-  def compare(opponent)
+  def compare(opponent) #Returns a phrase based on wether the calling instance wins.
     if self.choice == opponent.choice
      "Better luck next time..."
     elsif (self.choice == 'Paper' && opponent.choice == 'Rock') ||
@@ -54,6 +58,9 @@ class Computer
     @choice = choice
   end
   
+  # Designed to be called before there are any instances of Computer class.
+  # It could have been the initialize method, but I liked the super simple
+  # initialize method, so I made this to pass the result on to initialize.
   def self.choose
     choice = RockPaperScissors::CHOICES.values.sample
     puts "Computer chooses #{choice}!"
@@ -65,7 +72,9 @@ end
 class RockPaperScissors
 
 CHOICES = {"r" => "Rock","p" => "Paper","s" => "Scissors"}
-
+  
+  # Returns a sentence, ("Rock crushes Scissors!") based 
+  # on which two choices are entered in this game.
   def self.return_choice_phrase(player, opponent)
     choices = []
     choices << player.choice
