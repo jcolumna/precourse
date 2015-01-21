@@ -1,4 +1,11 @@
-#oop_tic_tac_toe.rb
+# oop_tic_tac_toe.rb
+
+# @author - Joshua Columna
+# @date   - 1/20/2015
+
+# In tic tac toe, you and your opponent take turns placing
+# your symbol into a 3x3 grid. To win you must secure 
+# three squares in a row with your symbol (either X's or O's.)
 
 require 'pry'
 

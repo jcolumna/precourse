@@ -1,7 +1,7 @@
 # oop_rps.rb
 
 # @author - Joshua Columna
-# @date   - 1/6/2015
+# @date   - 1/20/2015
 
 # In rock paper scissors, you and your opponent both 
 # choose one of the three options rock, paper, or scissors, 
