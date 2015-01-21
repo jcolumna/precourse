@@ -12,19 +12,12 @@ class Player
 
 	attr_reader :choice
   
-  def initialize(choice)
-    @choice = choice
-  end
-  
-  # I implemented the following, and its sister method Computer.choose
-  # in order to keep the respective classes' initialize methods simple.
-  # because these methods are designed to be called before any instances
-  # of their classes are created, they had to be class methods.
-  def self.get_player_choice 
+  def initialize 
     puts "Choose one: Rock, Paper, or Scissors!"
     sleep (0.5)
     puts "(Type r, p, or s to make your choice.)"
-    while true
+    valid = false
+    while !valid
       input = gets.chomp.downcase
       unless RockPaperScissors::CHOICES.has_key?(input)
         puts "Sorry, invalid input."
@@ -32,7 +25,8 @@ class Player
       else
         choice = RockPaperScissors::CHOICES.fetch(input)
         puts "You chose #{choice}!"
-        return choice   
+        @choice =  choice 
+        valid = true  
       end
     end    
   end
@@ -48,36 +42,12 @@ class Player
       "Oh no.. You lose. :<"
     end
   end
-end
 
-class Computer
-  
-  attr_reader :choice
-  
-  def initialize(choice)
-    @choice = choice
-  end
-  
-  # Designed to be called before there are any instances of Computer class.
-  # It could have been the initialize method, but I liked the super simple
-  # initialize method, so I made this to pass the result on to initialize.
-  def self.choose
-    choice = RockPaperScissors::CHOICES.values.sample
-    puts "Computer chooses #{choice}!"
-    choice
-  end
-
-end
-
-class RockPaperScissors
-
-CHOICES = {"r" => "Rock","p" => "Paper","s" => "Scissors"}
-  
   # Returns a sentence, ("Rock crushes Scissors!") based 
   # on which two choices are entered in this game.
-  def self.return_choice_phrase(player, opponent)
+  def return_choice_phrase(opponent) 
     choices = []
-    choices << player.choice
+    choices << self.choice
     choices << opponent.choice
     if choices.first == choices.last
       "It's a tie!"
@@ -89,8 +59,8 @@ CHOICES = {"r" => "Rock","p" => "Paper","s" => "Scissors"}
       "Scissors cuts Paper!"
     end
   end  
-  
-  def self.play_again
+
+  def play_again
     puts "Play again? (y/n)"
     input = gets.chomp.downcase
     if input == "y"
@@ -101,10 +71,28 @@ CHOICES = {"r" => "Rock","p" => "Paper","s" => "Scissors"}
     end
   end
 
+end
+
+class Computer
+  
+  attr_reader :choice
+  
+  def initialize
+    choice = RockPaperScissors::CHOICES.values.sample
+    puts "Computer chooses #{choice}!"
+    @choice = choice
+  end
+
+end
+
+class RockPaperScissors
+
+CHOICES = {"r" => "Rock","p" => "Paper","s" => "Scissors"}
+
   def run
-    player1 = Player.new(Player.get_player_choice)
+    player1 = Player.new
     sleep(1)
-    computer = Computer.new(Computer.choose)
+    computer = Computer.new
     sleep(1)
     puts "."
     sleep(0.5)
@@ -112,11 +100,11 @@ CHOICES = {"r" => "Rock","p" => "Paper","s" => "Scissors"}
     sleep(0.5)
     puts "."
     sleep(0.5)
-    puts RockPaperScissors.return_choice_phrase(player1, computer)
+    puts player1.return_choice_phrase(computer)
     sleep(1)
     puts player1.compare(computer)
     sleep(1)
-    RockPaperScissors.play_again
+    player1.play_again
   end
 
 end
